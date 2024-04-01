@@ -26,5 +26,11 @@
     <ClInclude Include="BankAction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MailBank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeCustomer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

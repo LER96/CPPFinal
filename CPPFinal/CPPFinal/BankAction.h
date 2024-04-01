@@ -52,7 +52,6 @@ public:
 			break;
 		}
 	}
-
 	bool CompareAction(string s)
 	{
 		if (s==_action)
@@ -61,7 +60,6 @@ public:
 		}
 		return false;
 	}
-
 	BankAction();
 	~BankAction();
 

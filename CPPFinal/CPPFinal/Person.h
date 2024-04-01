@@ -11,8 +11,8 @@ class Person
 public:
 	enum PersonType
 	{
-		Customer,
-		Staff
+		Regular,
+		Clerck
 	};
 	PersonType type;
 	Person();
@@ -32,6 +32,7 @@ public:
 		name = _name;
 		dateOfBirth = _birth;
 		_action = action;
+		type = Regular;
 	}
 	string GetDateOfBirth()
 	{
@@ -40,7 +41,10 @@ public:
 
 	void SetAge(string _currentDate)
 	{
+		int _currentYear = stoi(_currentDate.substr(6, 9));
+		int _birthYear= stoi(dateOfBirth.substr(6, 9));
 
+		_age = _currentYear - _birthYear;
 	}
 
 	int GetAge() 
@@ -59,14 +63,15 @@ private:
 class Staff : public Person
 {
 public:
+	Staff();
 	Staff(vector<BankAction> action)
 	{
 		for (int i = 0; i < action.size(); i++)
 		{
 			_actions.push_back(action[i]);
 		}
+		type = Clerck;
 	}
-
 	bool CanDo(BankAction a)
 	{
 		for (int i = 0; i < _actions.size(); i++)
