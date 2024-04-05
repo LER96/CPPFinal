@@ -1,7 +1,7 @@
 #include <iostream>
-
+#include "MailBank.h"
 int main()
 {
-    std::cout << "Hello World!\n";
+    MailBank bank = MailBank("24/04/2024", 8, 20);
 }
 

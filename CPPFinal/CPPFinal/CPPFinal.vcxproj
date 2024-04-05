@@ -131,9 +131,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BankAction.h" />
+    <ClInclude Include="Customer.h" />
     <ClInclude Include="MailBank.h" />
     <ClInclude Include="NodeCustomer.h" />
-    <ClInclude Include="Person.h" />
+    <ClInclude Include="Staff.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
