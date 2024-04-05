@@ -13,13 +13,14 @@ public:
 	string name;
 	string dateOfBirth;
 	string lineNumber;
-	Customer(string _name, string _birth, int action, string currentDate)
+	Customer(string _name, string _birth, int action)
 	{
 		name = _name;
 		dateOfBirth = _birth;
-		_action = new BankAction(action);
-		SetAge(currentDate);
+		_action.SetAction(action);
+		_typeString = "null";
 	}
+
 	string GetDateOfBirth()
 	{
 		return dateOfBirth;
@@ -29,9 +30,34 @@ public:
 		return lineNumber;
 	} 
 	string GetName() { return name; }
+	BankAction GetBankAction()
+	{
+		return _action;
+	}
 	int GetAge()
 	{
 		return _age;
+	}
+	string GetCustomerType()
+	{
+		if (_age>=65)
+		{
+			_typeString = "Elder";
+		}
+		else
+		{
+			_typeString = "Regular";
+		}
+
+		return _typeString;
+	}
+	bool CompareType(string type)
+	{
+		if (type ==_typeString)
+		{
+			return true;
+		}
+		return false;
 	}
 	void SetAge(string _currentDate)
 	{
@@ -55,8 +81,9 @@ public:
 	~Customer();
 
 private:
-	BankAction* _action;
+	BankAction _action= BankAction();
 	int _age;
+	string _typeString;
 };
 
 #endif // !Customer_H
