@@ -9,7 +9,7 @@ public:
 	{
 		for (int i = 0; i < action.size(); i++)
 		{
-			BankAction _act = BankAction(action[i]);
+			BankAction* _act = new BankAction(action[i]);
 			_actions.push_back(_act);
 		}
 	}
@@ -25,22 +25,22 @@ public:
 	{
 		if (IsWorking()==false && CanDoWork(c->GetBankAction()))
 		{
-			if (_previousCustomer->CompareType(c->GetCustomerType()))
-			{
-				return false;
-			}
-			else
+			if (!_previousCustomer)
 			{
 				return true;
+			}
+			else if (_previousCustomer->CompareType(c->GetCustomerType()))
+			{
+				return false;
 			}
 		}
 		return false;
 	}
-	bool CanDoWork(BankAction a)
+	bool CanDoWork(BankAction* a)
 	{
 		for (int i = 0; i < _actions.size(); i++)
 		{
-			if (a.CompareAction(_actions[i].GetAction()))
+			if (a->CompareAction(_actions[i]->GetAction()))
 			{
 				return true;
 			}
@@ -64,15 +64,15 @@ public:
 		_currentCustomer = customer;
 		_isWorking = true;
 	}
-	void AddAction(BankAction a)
+	void AddAction(BankAction* a)
 	{
 		_actions.push_back(a);
 	}
-	void RemoveAction(BankAction a)
+	void RemoveAction(BankAction* a)
 	{
 		for (int i = 0; i < _actions.size(); i++)
 		{
-			if (a.CompareAction(_actions[i].GetAction()))
+			if (a->CompareAction(_actions[i]->GetAction()))
 			{
 				_actions.erase(_actions.begin() + i);
 			}
@@ -83,7 +83,7 @@ public:
 private:
 	Customer* _currentCustomer;
 	Customer* _previousCustomer;
-	vector<BankAction> _actions;
+	vector<BankAction*> _actions;
 	float _timeToWork;
 	float _currentWorkTime;
 	bool _isWorking;

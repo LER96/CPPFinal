@@ -22,6 +22,7 @@ private:
 	float _closeHour;
 	float _currentTime;
 	int _currentLine;
+	int _counterTime = 0;
 	NodeCustomer* _customersList;
 	vector<Staff> _clercks= vector<Staff>();
 };
@@ -37,41 +38,30 @@ MailBank::MailBank(string currentDate, float open, float close)
 }
 void MailBank::ManageBank()
 {
-	int _counter = 0;
-	while (_currentTime < _closeHour)
-	{
-		_counter++;
-		if (_counter > 50000)
-		{
-			_counter = 0;
-			_currentTime += 0.001f;
-			Print();
-		}
+	_currentTime += 0.05f;
+	Print();
 
-		//if there're any clercks working
-		if (_clercks.size() > 0)
+	//if there're any clercks working
+	if (_clercks.size() > 0)
+	{
+		for (int i = 0; i < _clercks.size(); i++)
 		{
-			for (int i = 0; i < _clercks.size(); i++)
+			//runs on each 
+			NodeCustomer* _customerNode = _customersList->GetFront();
+			Customer* _customer = _customerNode->GetValue();
+			if (_clercks[i].CanAcceptCustomer(_customer))
 			{
-				//runs on each 
-				NodeCustomer* _customerNode = _customersList->GetFront();
-				Customer* _customer = _customerNode->GetValue();
-				if (_clercks[i].CanAcceptCustomer(_customer))
+				_clercks[i].AssignCustomer(_customer);
+			}
+			else
+			{
+				if (_customerNode->GetNext() != nullptr)
 				{
-					_clercks[i].AssignCustomer(_customer);
-				}
-				else
-				{
-					if (_customerNode->GetNext() != nullptr)
-					{
-						_customerNode = _customerNode->GetNext();
-					}
+					_customerNode = _customerNode->GetNext();
 				}
 			}
 		}
-
-	}
-
+	}						  
 }
 void MailBank::AssignCustomer(Customer* c)
 {

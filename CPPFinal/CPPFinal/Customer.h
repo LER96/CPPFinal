@@ -17,7 +17,7 @@ public:
 	{
 		name = _name;
 		dateOfBirth = _birth;
-		_action.SetAction(action);
+		_action = new BankAction(action);
 		_typeString = "null";
 	}
 
@@ -30,7 +30,7 @@ public:
 		return lineNumber;
 	} 
 	string GetName() { return name; }
-	BankAction GetBankAction()
+	BankAction* GetBankAction()
 	{
 		return _action;
 	}
@@ -81,7 +81,7 @@ public:
 	~Customer();
 
 private:
-	BankAction _action= BankAction();
+	BankAction* _action;
 	int _age;
 	string _typeString;
 };

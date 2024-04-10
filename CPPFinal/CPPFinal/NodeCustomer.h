@@ -76,7 +76,7 @@ public:
 		NodeCustomer* newNode = new NodeCustomer(customer);
 		if (!_front || customer->GetAge()>=65)
 		{
-			newNode->_next = _front;
+			//newNode->_next = _front->_next;
 			_front = newNode;
 		}
 		else

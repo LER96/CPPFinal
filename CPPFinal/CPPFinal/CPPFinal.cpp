@@ -11,7 +11,12 @@ int main()
     bank.AssignWorker(s);
     bank.AssignCustomer(c);
     bank.AssignCustomer(c1);
-
-    bank.ManageBank();
+    while (true)
+    {
+        if (cin.get() == '\n')
+        {
+            bank.ManageBank();
+        }
+    }
 }
 
