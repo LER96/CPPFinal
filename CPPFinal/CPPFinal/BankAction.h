@@ -13,16 +13,16 @@ public:
 		switch (_action)
 		{
 		case 1:
-			_timeOfAction = 0.1f;
+			_timeOfAction = 3;
 			break;
 		case 2:
-			_timeOfAction = 0.2f;
+			_timeOfAction = 2;
 			break;
 		case 3:
-			_timeOfAction = 0.3f;
+			_timeOfAction = 5;
 			break;
 		case 4:
-			_timeOfAction = 0.4f;
+			_timeOfAction = 4;
 			break;
 		default:
 			break;

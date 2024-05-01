@@ -10,10 +10,32 @@ public:
 	MailBank(string curretDate, float open, float close);
 	void AssignCustomer(Customer* customer);
 	void RemoveCustomer(Customer* customer);
-	void AssignWorker(Staff staff);
-	void RemoveWorker(Staff staff);
+	void AssignWorker(Staff* staff);
+	void RemoveWorker(Staff* staff);
 	void Print();
-	void ManageBank();
+	void ManageBank()
+	{
+		_currentTime += 0.05f;
+		Print();
+
+		//if there're any clercks working
+		if (_clercks.size() > 0)
+		{
+			for (int i = 0; i < _clercks.size(); i++)
+			{
+				for (int pos = 0; pos < _customersList->GetSize(); pos++)
+				{
+					Customer* _customer = _customersList->CustomerAt(pos);
+					if (_clercks[i]->CanAcceptCustomer(_customer))
+					{
+						_clercks[i]->AssignCustomer(_customer);
+						_customersList->RemoveCustomer(_customer);
+					}
+				}
+			}
+		}		
+	}
+	float GetTime() { return _currentTime; }
 	~MailBank();
 
 private:
@@ -24,7 +46,7 @@ private:
 	int _currentLine;
 	int _counterTime = 0;
 	NodeCustomer* _customersList;
-	vector<Staff> _clercks= vector<Staff>();
+	vector<Staff*> _clercks;
 };
 
 MailBank::MailBank(string currentDate, float open, float close)
@@ -36,42 +58,16 @@ MailBank::MailBank(string currentDate, float open, float close)
 	_customersList = new NodeCustomer();
 	
 }
-void MailBank::ManageBank()
-{
-	_currentTime += 0.05f;
-	Print();
-
-	//if there're any clercks working
-	if (_clercks.size() > 0)
-	{
-		for (int i = 0; i < _clercks.size(); i++)
-		{
-			//runs on each 
-			NodeCustomer* _customerNode = _customersList->GetFront();
-			Customer* _customer = _customerNode->GetValue();
-			if (_clercks[i].CanAcceptCustomer(_customer))
-			{
-				_clercks[i].AssignCustomer(_customer);
-			}
-			else
-			{
-				if (_customerNode->GetNext() != nullptr)
-				{
-					_customerNode = _customerNode->GetNext();
-				}
-			}
-		}
-	}						  
-}
 void MailBank::AssignCustomer(Customer* c)
 {
+	c->SetAge(_date);
 	_customersList->enqueue(c);
 }
 void MailBank::RemoveCustomer(Customer* c)
 {
-	_customersList->RemoveNode(c);
+	_customersList->RemoveCustomer(c);
 }
-void MailBank::AssignWorker(Staff staff)
+void MailBank::AssignWorker(Staff* staff)
 {
 	_clercks.push_back(staff);
 }
@@ -84,9 +80,9 @@ void MailBank::Print()
 	{
 		for (int i = 0; i < _clercks.size(); i++)
 		{
-			if (_clercks[i].IsWorking())
+			if (_clercks[i]->IsWorking())
 			{
-				cout << "Clerck" + i << " is Working with: " << _clercks[i].GetCurrentCustomer()->GetName() << endl;
+				cout << "Clerck" + i << " is Working with: " << _clercks[i]->GetCurrentCustomer()->GetName() << endl;
 			}
 			else
 			{

@@ -5,11 +5,11 @@ class Staff
 {
 public:
 	Staff(){}
-	Staff(vector<int> action)
+	Staff(vector<int> actions)
 	{
-		for (int i = 0; i < action.size(); i++)
+		for (int i = 0; i < actions.size(); i++)
 		{
-			BankAction* _act = new BankAction(action[i]);
+			BankAction* _act = new BankAction(actions[i]);
 			_actions.push_back(_act);
 		}
 	}
@@ -21,22 +21,22 @@ public:
 			DoneService();
 		}
 	}
-	bool CanAcceptCustomer(Customer* c)
+	bool CanAcceptCustomer(Customer* customer)
 	{
-		if (IsWorking()==false && CanDoWork(c->GetBankAction()))
+		if (IsWorking()==false && CanDoAction(customer->GetBankAction()))
 		{
 			if (!_previousCustomer)
 			{
 				return true;
 			}
-			else if (_previousCustomer->CompareType(c->GetCustomerType()))
+			else if (_previousCustomer->CompareType(customer->GetCustomerType()))
 			{
 				return false;
 			}
 		}
 		return false;
 	}
-	bool CanDoWork(BankAction* a)
+	bool CanDoAction(BankAction* a)
 	{
 		for (int i = 0; i < _actions.size(); i++)
 		{

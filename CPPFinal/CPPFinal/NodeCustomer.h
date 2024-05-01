@@ -1,119 +1,125 @@
 #ifndef NodeCustomer_H
 #define NodeCustomer_H
 #include "Customer.h"
+
+class Node
+{
+public:
+	Customer* value;
+	Node* next;
+	int position;
+	Node(Customer* c)
+	{
+		value = c;
+		next = nullptr;
+		position = 0;
+	}
+	Node* GetNext() { return next; }
+	Customer* GetValue() { return value; }
+	void SetPostion(int pos)
+	{
+		position = pos;
+	}
+	int GetPosition() { return position; }
+};
+
+
 class NodeCustomer
 {
 public:
 	NodeCustomer()
 	{
-		_value = nullptr;
-		_next = nullptr;
 		_front = nullptr;
 		_rear = nullptr;
 	}
-	NodeCustomer(const NodeCustomer& orig) 
-	{ 
-		_next = orig._next; 
-		_value = orig._value; 
-		_front = orig._front;
-		_rear = orig._rear;
-	}
-	NodeCustomer(Customer* c)
-	{
-		_value = c;
-		_next = nullptr;
-	}
-
 	bool isEmpty()
 	{
 		return _front = nullptr;
 	}
-	bool HasNext() 
+	Node* GetFront() { return _front; }
+	int GetSize() { return _size; }
+	Customer* CustomerAt(int pos)
 	{
-		if (_next!=NULL)
+		Node* current = _front;
+		while (current->position!= pos)
 		{
-			return true;
+			current = current->next;
 		}
-		return false;
-	}
-
-	NodeCustomer* GetFront() { return _front; }
-	NodeCustomer* GetNext() { return _next; }
-	Customer* GetValue() { return _value; }
-	void SetNext(NodeCustomer* newNext) 
-	{
-		if (newNext== nullptr)
-		{
-			_next = nullptr;
-		}
-		else
-		{
-			_next = newNext->_next;
-		}
-	}
-	void RemoveNode(Customer* c)
-	{
-		NodeCustomer* _previous = nullptr;
-		NodeCustomer* _current= _front;
-		while (_current->GetValue() != c)
-		{
-			_previous = _current;
-			_current = _current->_next;
-		}
-		if (_current->HasNext())
-		{
-			_previous->SetNext(_current->GetNext());
-		}
-		else
-		{
-			delete _current;
-		}
-	}
-	void SetValue(Customer* val) { _value = val; }
-
-	void enqueue(Customer* customer)
-	{
-		NodeCustomer* newNode = new NodeCustomer(customer);
-		if (!_front || customer->GetAge()>=65)
-		{
-			//newNode->_next = _front->_next;
-			_front = newNode;
-		}
-		else
-		{
-			NodeCustomer* _current = _front;
-			while (_current->_next && _current->_next->_value->GetAge() >= 65)
-			{
-				_current = _current->_next;
-			}
-			newNode ->_next = _current->_next;
-			_current->_next = newNode;
-		}
+		return current->value;
 	}
 	Customer* dequeue() {
 		if (!_front) {
 			return nullptr;
 		}
-
-		NodeCustomer* temp = _front;
-		_front = _front->_next;
-		if (!_front) 
-		{
+		Node* temp = _front;
+		_front = _front->next;
+		if (!_front) {
 			_rear = nullptr;
 		}
-
-		Customer* customer = temp->_value;
+		Customer* customer = temp->value;
 		delete temp;
+		CustomerSize();
 		return customer;
 	}
+	void enqueue(Customer* customer) 
+	{
+		Node* newNode = new Node(customer);
+		if (customer->GetAge()>=65 || _front==nullptr)
+		{
+			newNode->next = _front;
+			_front = newNode;
+		}
+		else
+		{
+			Node* current = _front;
+			while (current->next != nullptr) {
+				current = current->next;
+			}
+			current->next = newNode;
+		}
+		CustomerSize();
+	}
+	void RemoveCustomer(Customer* customer) 
+	{
+		Node* current = _front;
+		Node* prev = nullptr;
 
+		while (current != nullptr && current->value != customer) {
+			prev = current;
+			current = current->next;
+		}
+
+		if (current == nullptr) {
+			return;
+		}
+
+		if (prev == nullptr) {
+			_front = current->next;
+		}
+		else {
+			prev->next = current->next;
+		}
+		delete current;
+		CustomerSize();
+	}
 	virtual ~NodeCustomer(){}
 
 private:
-	NodeCustomer* _next;
-	Customer* _value;
-	NodeCustomer* _front;
-	NodeCustomer* _rear;
+	Node* _front;
+	Node* _rear;
+	int _size;
+
+	void CustomerSize()
+	{
+		Node* current = _front; 
+		_size = 0;
+		while (current!=nullptr)
+		{
+			current->SetPostion(_size);
+			current = current->next;
+			_size++;
+		}
+	}
 };
 
 #endif // !NodeCustomer_H
