@@ -108,7 +108,6 @@ private:
 	Node* _front;
 	Node* _rear;
 	int _size;
-
 	void CustomerSize()
 	{
 		Node* current = _front; 

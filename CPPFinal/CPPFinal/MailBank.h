@@ -15,7 +15,7 @@ public:
 	void Print();
 	void ManageBank()
 	{
-		_currentTime += 0.05f;
+		_currentTime += _timerOffset;
 		Print();
 
 		//if there're any clercks working
@@ -23,13 +23,23 @@ public:
 		{
 			for (int i = 0; i < _clercks.size(); i++)
 			{
-				for (int pos = 0; pos < _customersList->GetSize(); pos++)
+				if (_clercks[i]->IsWorking())
 				{
-					Customer* _customer = _customersList->CustomerAt(pos);
-					if (_clercks[i]->CanAcceptCustomer(_customer))
+					_clercks[i]->UpdateWork(_timerOffset);
+					continue;
+				}
+				else
+				{
+
+					for (int pos = 0; pos < _customersList->GetSize(); pos++)
 					{
-						_clercks[i]->AssignCustomer(_customer);
-						_customersList->RemoveCustomer(_customer);
+						Customer* _customer = _customersList->CustomerAt(pos);
+						if (_clercks[i]->CanAcceptCustomer(_customer))
+						{
+							_clercks[i]->AssignCustomer(_customer);
+							_customersList->RemoveCustomer(_customer);
+							break;
+						}
 					}
 				}
 			}
@@ -43,7 +53,8 @@ private:
 	float _openHour;
 	float _closeHour;
 	float _currentTime;
-	int _currentLine;
+	float _timerOffset;
+	int _lineNumber=0;
 	int _counterTime = 0;
 	NodeCustomer* _customersList;
 	vector<Staff*> _clercks;
@@ -55,6 +66,7 @@ MailBank::MailBank(string currentDate, float open, float close)
 	_openHour = open;
 	_closeHour = close;
 	_currentTime = _openHour;
+	_timerOffset = 0.05f;
 	_customersList = new NodeCustomer();
 	
 }
@@ -90,7 +102,7 @@ void MailBank::Print()
 			}
 		}
 	}
-	cout << "\n======================\n" << "Current line number: " << _currentLine << endl;
+	cout << "\n======================\n" << "Current line number: " << _lineNumber << endl;
 	cout << "======================" << endl;
 }
 MailBank::~MailBank()

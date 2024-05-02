@@ -7,29 +7,29 @@ class BankAction
 {
 public:
 	BankAction(){}
-	BankAction(int act)
+	BankAction(char act)
 	{
 		_action = act;
 		switch (_action)
 		{
-		case 1:
-			_timeOfAction = 3;
+		case '1'://Recive Package
+			_timeOfAction = 0.1f;
 			break;
-		case 2:
-			_timeOfAction = 2;
+		case '2'://Deliver Package
+			_timeOfAction = 0.3f;
 			break;
-		case 3:
-			_timeOfAction = 5;
+		case '3': //Payment Arragment
+			_timeOfAction = 0.5f;
 			break;
-		case 4:
-			_timeOfAction = 4;
+		case '4': //Buy Product
+			_timeOfAction = 0.5f;
 			break;
 		default:
 			break;
 		}
 	}
 	~BankAction(){}
-	int GetAction()
+	char GetAction()
 	{
 		return _action;
 	}
@@ -41,7 +41,7 @@ public:
 	{
 		_timeOfAction *= multiplier;
 	}
-	bool CompareAction(int s)
+	bool CompareAction(char s)
 	{
 		if (s==_action)
 		{
@@ -49,9 +49,8 @@ public:
 		}
 		return false;
 	}
-
 private:
-	int _action;
+	char _action;
 	float _timeOfAction;
 };
 

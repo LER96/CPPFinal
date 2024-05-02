@@ -13,14 +13,13 @@ public:
 	string name;
 	string dateOfBirth;
 	string lineNumber;
-	Customer(string _name, string _birth, int action)
+	Customer(string _name, string _birth, char action)
 	{
 		name = _name;
 		dateOfBirth = _birth;
 		_action = new BankAction(action);
 		_typeString = "null";
 	}
-
 	string GetDateOfBirth()
 	{
 		return dateOfBirth;
@@ -77,7 +76,6 @@ public:
 			lineNumber = "" + line;
 		}
 	}
-
 	~Customer();
 
 private:

@@ -5,7 +5,7 @@ class Staff
 {
 public:
 	Staff(){}
-	Staff(vector<int> actions)
+	Staff(vector<char> actions)
 	{
 		for (int i = 0; i < actions.size(); i++)
 		{
@@ -25,14 +25,7 @@ public:
 	{
 		if (IsWorking()==false && CanDoAction(customer->GetBankAction()))
 		{
-			if (!_previousCustomer)
-			{
-				return true;
-			}
-			else if (_previousCustomer->CompareType(customer->GetCustomerType()))
-			{
-				return false;
-			}
+			return true;
 		}
 		return false;
 	}
@@ -62,6 +55,7 @@ public:
 	void AssignCustomer(Customer* customer)
 	{
 		_currentCustomer = customer;
+		_timeToWork = customer->GetBankAction()->GetActionTime();
 		_isWorking = true;
 	}
 	void AddAction(BankAction* a)
