@@ -134,6 +134,7 @@
     <ClInclude Include="Customer.h" />
     <ClInclude Include="MailBank.h" />
     <ClInclude Include="NodeCustomer.h" />
+    <ClInclude Include="PersonData.h" />
     <ClInclude Include="Staff.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

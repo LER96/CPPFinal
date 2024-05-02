@@ -35,5 +35,8 @@
     <ClInclude Include="Staff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PersonData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
