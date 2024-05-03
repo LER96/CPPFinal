@@ -69,11 +69,12 @@ public:
 	{
 		if (_age >= 65)
 		{
-			lineNumber = "E" + line;
+			lineNumber = "E";
+			lineNumber += to_string(line);
 		}
 		else
 		{
-			lineNumber = "" + line;
+			lineNumber = to_string(line);
 		}
 	}
 	~Customer();

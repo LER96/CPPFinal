@@ -11,7 +11,7 @@ public:
 	void InsertCustomerFromFile()
 	{
         ifstream file("C:/Users/Admin/Desktop/Customers.txt");
-        vector<Customer*> customers;
+        //vector<Customer*> customers;
 
         if (file.is_open()) {
             string line;
@@ -24,8 +24,6 @@ public:
                 {
                     Customer* customer = new Customer(name, date, action);
                     _bank->AssignCustomer(customer);
-                    customers.push_back(customer);
-
                 }
             }
             file.close();
@@ -34,7 +32,27 @@ public:
             cerr << "Unable to open file!" << endl;
         }
 	}
-
+    void SaveCustomerIntoFile()
+    {
+        ofstream file("C:/Users/Admin/Desktop/Customers1.txt");
+        file << "";
+        if (file.is_open())
+        {
+            NodeCustomer* customersLeft = _bank->GetCustomersList();
+            Node* current = customersLeft->GetFront();
+            while (current!=nullptr)
+            {
+                string name = current->value->GetName();
+                string date = current->value->GetDateOfBirth();
+                string lineNum = current->value->GetLineNumber();
+                char action = current->value->GetBankAction()->GetAction();
+                file << name << date << action << "," << lineNum << endl;
+                current = current->next;
+            }
+            file.close();
+        }
+        
+    }
     void InsertWorkersFromFile()
     {
         ifstream file("C:/Users/Admin/Desktop/Workers.txt");

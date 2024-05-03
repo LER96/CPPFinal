@@ -45,6 +45,9 @@ public:
 			}
 		}		
 	}
+
+	NodeCustomer* GetCustomersList() { return _customersList; }
+	float GetCloseHour() { return _closeHour; }
 	float GetTime() { return _currentTime; }
 	~MailBank();
 
@@ -54,8 +57,8 @@ private:
 	float _closeHour;
 	float _currentTime;
 	float _timerOffset;
-	int _lineNumber=0;
 	int _counterTime = 0;
+	int _lineNumber;
 	NodeCustomer* _customersList;
 	vector<Staff*> _clercks;
 };
@@ -66,6 +69,7 @@ MailBank::MailBank(string currentDate, float open, float close)
 	_openHour = open;
 	_closeHour = close;
 	_currentTime = _openHour;
+	_lineNumber = 1;
 	_timerOffset = 0.05f;
 	_customersList = new NodeCustomer();
 	
@@ -73,6 +77,8 @@ MailBank::MailBank(string currentDate, float open, float close)
 void MailBank::AssignCustomer(Customer* c)
 {
 	c->SetAge(_date);
+	c->SetLineNumber(_lineNumber);
+	_lineNumber++;
 	_customersList->enqueue(c);
 }
 void MailBank::RemoveCustomer(Customer* c)
@@ -94,15 +100,15 @@ void MailBank::Print()
 		{
 			if (_clercks[i]->IsWorking())
 			{
-				cout << "Clerck" + i << " is Working with: " << _clercks[i]->GetCurrentCustomer()->GetName() << endl;
+				cout << "Clerck "<<  i+1 << ": is Working with: " << _clercks[i]->GetCurrentCustomer()->GetName() << endl;
 			}
 			else
 			{
-				cout << "Clerck" + i << " is available" << endl;
+				cout << "Clerck " << i+1 << ": is available" << endl;
 			}
 		}
 	}
-	cout << "\n======================\n" << "Current line number: " << _lineNumber << endl;
+	cout << "\n======================\n" << "Current line number: " << _customersList->GetSize() << endl;
 	cout << "======================" << endl;
 }
 MailBank::~MailBank()
