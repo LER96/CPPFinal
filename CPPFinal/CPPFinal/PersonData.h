@@ -8,7 +8,7 @@ class PersonData
 public:
 	PersonData(MailBank* bank);
 	~PersonData();
-	void InsertCustomerFromFile()
+	void InsertCustomerFromFile() // read customers from customers file
 	{
         ifstream file("C:/Users/Admin/Documents/GitHub/CPPFinal/Customers.txt");
         //vector<Customer*> customers;
@@ -32,7 +32,7 @@ public:
             cerr << "Unable to open file!" << endl;
         }
 	}
-    void SaveCustomerIntoFile()
+    void SaveCustomerIntoFile()// when called, the file will be ovrrite with the imformation of the postal office
     {
         ofstream file("C:/Users/Admin/Documents/GitHub/CPPFinal/Customers1.txt");
         file << "";
@@ -53,7 +53,7 @@ public:
         }
         
     }
-    void InsertWorkersFromFile()
+    void InsertWorkersFromFile()//Read workers data from workers file 
     {
         ifstream file("C:/Users/Admin/Documents/GitHub/CPPFinal/Workers.txt");
         vector<Staff*> staff;
@@ -93,7 +93,6 @@ PersonData::PersonData(MailBank* bank)
     InsertCustomerFromFile();
     InsertWorkersFromFile();
 }
-
 PersonData::~PersonData()
 {
 }

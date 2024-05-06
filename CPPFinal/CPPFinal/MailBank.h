@@ -16,7 +16,6 @@ public:
 	void ManageBank()
 	{
 		_currentTime += _timerOffset;
-		Print();
 
 		//if there're any clercks working
 		if (_clercks.size() > 0)
@@ -43,7 +42,8 @@ public:
 					}
 				}
 			}
-		}		
+		}
+		Print();
 	}
 
 	NodeCustomer* GetCustomersList() { return _customersList; }
@@ -100,7 +100,7 @@ void MailBank::Print()
 		{
 			if (_clercks[i]->IsWorking())
 			{
-				cout << "Clerck "<<  i+1 << ": is Working with: " << _clercks[i]->GetCurrentCustomer()->GetName() << endl;
+				cout << "Clerck " << i + 1 << ": is Working with: " << _clercks[i]->GetCurrentCustomer()->GetLineNumber() << " || will be free in: " << ceil(_clercks[i]->GetWorkingTime() * 60) << " minutes" << endl;
 			}
 			else
 			{

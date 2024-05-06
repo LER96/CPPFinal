@@ -15,8 +15,8 @@ public:
 	}
 	void UpdateWork(float _updateTime)
 	{
-		_currentWorkTime = _currentWorkTime + _updateTime;
-		if (_currentWorkTime >= _timeToWork)
+		_timeToWork = _timeToWork - _updateTime;
+		if ( _timeToWork<=0)
 		{
 			DoneService();
 		}
@@ -44,6 +44,7 @@ public:
 	{
 		return _isWorking;
 	}
+	float GetWorkingTime() { return _timeToWork; }
 	Customer* GetCurrentCustomer()
 	{
 		return _currentCustomer;
@@ -84,7 +85,7 @@ private:
 
 	void DoneService()
 	{
-		_currentWorkTime = 0;
+		_timeToWork = 0;
 		_previousCustomer = _currentCustomer;
 		_currentCustomer = nullptr;
 		_isWorking = false;

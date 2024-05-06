@@ -22,7 +22,7 @@ public:
 			_timeOfAction = 0.5f;
 			break;
 		case '4': //Buy Product
-			_timeOfAction = 0.5f;
+			_timeOfAction = 1.0f;
 			break;
 		default:
 			break;

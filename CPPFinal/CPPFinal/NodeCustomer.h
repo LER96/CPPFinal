@@ -46,21 +46,7 @@ public:
 		}
 		return current->value;
 	}
-	Customer* dequeue() {
-		if (!_front) {
-			return nullptr;
-		}
-		Node* temp = _front;
-		_front = _front->next;
-		if (!_front) {
-			_rear = nullptr;
-		}
-		Customer* customer = temp->value;
-		delete temp;
-		CustomerSize();
-		return customer;
-	}
-	void enqueue(Customer* customer) 
+	void enqueue(Customer* customer) //Add Customer to last/ first position
 	{
 		Node* newNode = new Node(customer);
 		if (customer->GetAge()>=65 || _front==nullptr)
@@ -78,7 +64,22 @@ public:
 		}
 		CustomerSize();
 	}
-	void RemoveCustomer(Customer* customer) 
+	Customer* dequeue() //Remove first Customer
+	{
+		if (!_front) {
+			return nullptr;
+		}
+		Node* temp = _front;
+		_front = _front->next;
+		if (!_front) {
+			_rear = nullptr;
+		}
+		Customer* customer = temp->value;
+		delete temp;
+		CustomerSize();
+		return customer;
+	} 
+	void RemoveCustomer(Customer* customer) // Remove specific customer, can be anywhere in the list
 	{
 		Node* current = _front;
 		Node* prev = nullptr;
@@ -107,7 +108,7 @@ private:
 	Node* _front;
 	Node* _rear;
 	int _size;
-	void CustomerSize()
+	void CustomerSize()// reorginize the size of the link node, and set position of customer
 	{
 		Node* current = _front; 
 		_size = 0;
