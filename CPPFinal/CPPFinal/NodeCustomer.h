@@ -15,7 +15,6 @@ public:
 		position = 0;
 	}
 	Node* GetNext() { return next; }
-	Customer* GetValue() { return value; }
 	void SetPostion(int pos)
 	{
 		position = pos;

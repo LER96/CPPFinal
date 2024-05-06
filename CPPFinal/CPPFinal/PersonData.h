@@ -10,7 +10,7 @@ public:
 	~PersonData();
 	void InsertCustomerFromFile()
 	{
-        ifstream file("C:/Users/Admin/Desktop/Customers.txt");
+        ifstream file("C:/Users/Admin/Documents/GitHub/CPPFinal/Customers.txt");
         //vector<Customer*> customers;
 
         if (file.is_open()) {
@@ -34,7 +34,7 @@ public:
 	}
     void SaveCustomerIntoFile()
     {
-        ofstream file("C:/Users/Admin/Desktop/Customers1.txt");
+        ofstream file("C:/Users/Admin/Documents/GitHub/CPPFinal/Customers1.txt");
         file << "";
         if (file.is_open())
         {
@@ -55,7 +55,7 @@ public:
     }
     void InsertWorkersFromFile()
     {
-        ifstream file("C:/Users/Admin/Desktop/Workers.txt");
+        ifstream file("C:/Users/Admin/Documents/GitHub/CPPFinal/Workers.txt");
         vector<Staff*> staff;
 
         if (file.is_open())
